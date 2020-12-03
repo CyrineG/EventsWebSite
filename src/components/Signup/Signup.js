@@ -26,9 +26,52 @@ function SignUp() {
     const [showPassword, setShowPassword] = React.useState(false);
 
 
+    let state = {
+            first_name: 'c',
+            last_name: 'c',
+            user_name: 'c',
+            pwd: 'c'
+        }
+
+   const onFNameChange = (event) => {
+        state.first_name= event.target.value
+    };
+
+    const onLNameChange = (event) => {
+        state.last_name= event.target.value
+    };
+
+    const onUNameChange = (event) => {
+        state.user_name= event.target.value
+    };
+
+    const onPwdChange = (event) => {
+        state.pwd= event.target.value
+    };
+
+
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
     };
+
+    const onSubmitRegister = () => {
+        fetch('http://localhost:8888/signup.php', {
+            method:'post',
+            headers: {'Content-type' : 'application/json'},
+            body: JSON.stringify({
+                first_name: state.first_name,
+                last_name: state.last_name,
+                user_name: state.user_name,
+                pwd: state.pwd
+            })
+        }).then(response => response.json());
+        /*.then (user => {
+            if (user){
+            this.props.loadUser(user);
+            this.props.onRouteChange('home')
+        }
+        })*/
+    }
     React.useEffect(() => {
         document.body.classList.add("login-page");
         document.body.classList.add("sidebar-collapse");
@@ -75,6 +118,7 @@ function SignUp() {
                                         type="text"
                                         onFocus={() => setFirstFocus(true)}
                                         onBlur={() => setFirstFocus(false)}
+                                        onChange= {onFNameChange}
                                     ></Input>
                                 </InputGroup>
                                 <InputGroup
@@ -93,6 +137,7 @@ function SignUp() {
                                         type="text"
                                         onFocus={() => setLastFocus(true)}
                                         onBlur={() => setLastFocus(false)}
+                                        onChange= {onLNameChange}
                                     ></Input>
                                 </InputGroup>
                                 <InputGroup
@@ -111,6 +156,7 @@ function SignUp() {
                                         type="text"
                                         onFocus={() => setUserFocus(true)}
                                         onBlur={() => setUserFocus(false)}
+                                        onChange= {onUNameChange}
                                     ></Input>
                                 </InputGroup>
                                 <InputGroup style={{ marginBottom: "4px" }}
@@ -129,6 +175,7 @@ function SignUp() {
                                         type={showPassword ? 'text' : 'password'}
                                         onFocus={() => setPassFocus(true)}
                                         onBlur={() => setPassFocus(false)}
+                                        onChange= {onPwdChange}
                                     ></Input>
                                     <InputGroupAddon addonType="append">
                                         <InputGroupText style={{ padding: "15px 16px 15px" }}>
@@ -151,6 +198,7 @@ function SignUp() {
                                     className="btn-round"
                                     color="info"
                                     size="lg"
+                                    onClick={onSubmitRegister}
                                 >
                                     Get Started
                     </Button>
