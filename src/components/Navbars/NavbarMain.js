@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Login from "../Login/Login.js";
+import classes from "./NavbarMain.module.css";
 import {
   Modal,
   UncontrolledTooltip,
@@ -10,7 +11,8 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Container
+  Container,
+  Button
 } from "reactstrap";
 
 function NavbarMain() {
@@ -81,6 +83,12 @@ function NavbarMain() {
             navbar
           >
             <Nav navbar>
+              <NavItem className={classes.nvitem}>
+                <NavLink to="/home" tag={Link}>
+                  Create an event
+                </NavLink>
+              </NavItem>
+
               <NavItem>
                 <NavLink to="/home" tag={Link}>
                   Home
